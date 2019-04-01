@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Temp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <style>
+        body {
+            width: 100wh;
+            color: #fff;
+            background: linear-gradient(-45deg, #f8b195, #f67280, #c06c84, #6c5b7b, #355c7d);
+            background-size: 400% 400%;
+            -webkit-animation: Gradient 15s ease infinite;
+            -moz-animation: Gradient 15s ease infinite;
+            animation: Gradient 15s ease infinite;
+        }
+        
+        @-webkit-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        @-moz-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        @keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        .card {
+            border-radius: 5px;
+            height: 100%;
+        }
+        
+        @font-face {
+            font-family: myFirstFont;
+            src: url(./css/tondo-bold-webfont.ttf);
+        }
+        
+        * {
+            font-family: myFirstFont;
+        }
+        
+        .card {
+            margin: 1%;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        h4 {
+            color: #050100;
+            background-image: -webkit-linear-gradient(92deg, #094f94, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-animation: hue 30s infinite linear;
+        }
+        
+        @keyframes hue {
+            from {
+                filter: hue-rotate(0deg);
+            }
+            to {
+                filter: hue-rotate(-360deg);
+            }
+        }
+        
+        .navbar-burger {
+            color: black;
+        }
+        
+        .lap {
+            width: 10%;
+            bottom: -55px;
+            position: relative;
+            margin-left: 3%;
+        }
+        
+        @media only screen and (max-width: 990px) {
+            .lap {
+                width: 25%;
+                bottom: -40px;
+                position: relative;
+                margin-left: 7%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar is-transparent">
+        <div class="navbar-brand">
+            <a class="navbar-logo" href="home.html">
+                <h1 style="color: rgb(31, 30, 30); font-size: 150%;margin-top:5%;padding-left:15px;">VTS 1.0 </h1>
+            </a>
+            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+            <div class="navbar-start">
+
+            </div>
+
+            <div class="navbar-end">
+                <a class="navbar-item active" href="home.html">
+                    Home
+                  </a>
+                <a class="navbar-item active" href="location.html">
+                    Live Location
+                  </a>
+                <a class="navbar-item active" href="sup.html">
+                    Add Supplier
+                  </a>
+                <a class="navbar-item active" href="driver.html">
+                    Add Driver
+                  </a>
+
+
+                <a class="button is-danger" id="sign-out" style="margin-top:2%;margin-left:1%">
+                    SignOut
+                  </a>
+
+            </div>
+
+        </div>
+        </div>
+    </nav>
+
+    <section class="hero" style="margin: auto;">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-mobile ">
+                    <div class="column">
+
+                        <div class="card">
+                            <div class="card-content">
+                                <h1>control of truck temperature</h1>
+                                <img src="image/truck.png" class="lap" alt="" srcset="">
+                                <h1 id="fireHeading" style="color: rgb(200, 59, 59)">0</h1>
+                                <form style="margin-top:30px;">
+
+                                    <div class="field">
+                                        <p class="control has-icons-left">
+                                            <input class="input" type="number" id="mainText" placeholder="Enter Temperture">
+                                            <span class="icon is-small is-left">
+                                                    <i class="fas fa-temperature-high"></i>
+                                              </span>
+                                        </p>
+                                    </div>
+                                    <button type="submit" class="button is-success" id="submitBtn" onclick="submitClick()" style="border-radius: 5%;">Set Temperature</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <footer style="margin-top: 40%;">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <p>2019 © PS</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyALWbrnwEjAcoSkrUa-hiPtfgyDZdJwcS4",
+            authDomain: "smartcity-dvr.firebaseapp.com",
+            databaseURL: "https://smartcity-dvr.firebaseio.com",
+            projectId: "smartcity-dvr",
+            storageBucket: "smartcity-dvr.appspot.com",
+            messagingSenderId: "817397451184"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script src="file/temp.js"></script>
+
+
+</body>
+<script>
+    document.querySelector('#sign-out').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        firebase.auth().signOut().then(function() {
+            console.log("sign-out successfully!");
+            window.location = "index.html";
+            // Sign-out successful.
+        }).catch(function(error) {
+            // An error happened.
+            console.log("sign-out error!!!!!!!!!!");
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Get all "navbar-burger " elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any nav burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(function($el) {
+                $el.addEventListener('click', function() {
+
+                    // Get the target from the "data-target " attribute
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    // Toggle the class on both the "navbar-burger " and the "navbar-menu "
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });
+</script>
+<script>
+    $("#showModal").click(function() {
+        $(".modal").addClass("is-active");
+    });
+
+    $(".modal-close").click(function() {
+        $(".modal").removeClass("is-active");
+    });
+</script>
+
+</html>

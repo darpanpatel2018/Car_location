@@ -1,0 +1,8 @@
+{
+  "short_name": "Realtime Truck Tracker",
+  "name": "Realtime Truck Tracker",
+  "start_url": "index.html?launcher=true",
+  "background_color": "#2196F3",
+  "display": "standalone",
+  "theme_color": "#2196F3"
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Live Tracking</title>
+    <link rel="manifest" href="file/manifest.json">
+    <!-- also optional for animateTo. But much nicer -->
+
+
+    <style>
+        html {
+            height: 100%;
+        }
+        
+        body {
+            height: 100%;
+            margin: 0px;
+            font-family: Helvetica, Arial;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDuzo-SR8kmJVw-dFaX5qLB8i9zWEvGfG4",
+            authDomain: "logistics-18.firebaseapp.com",
+            databaseURL: "https://logistics-18.firebaseio.com",
+            projectId: "logistics-18",
+            storageBucket: "logistics-18.appspot.com",
+            messagingSenderId: "1051638486379"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header" style="background-color: whitesmoke;color: black">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Live  Tracking</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="home.html" style="color:black"><b>Home</b></a>
+
+
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">TDS 1.0</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="home.html">Home</a>
+
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <!-- Your content goes here -->
+
+            </div>
+        </main>
+
+        <div id="map" style="width:100%;height:100%;"></div>
+    </div>
+
+    <script src="file/location.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBphzbgPHMdcFLkcC67XXDcPI699qHadXc&callback=initMap">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+
+</html>
