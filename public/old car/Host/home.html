@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Real time tracker!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+
+    <script>
+        var config = {
+            apiKey: "AIzaSyDuzo-SR8kmJVw-dFaX5qLB8i9zWEvGfG4",
+            authDomain: "logistics-18.firebaseapp.com",
+            databaseURL: "https://logistics-18.firebaseio.com",
+            projectId: "logistics-18",
+            storageBucket: "logistics-18.appspot.com",
+            messagingSenderId: "1051638486379"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <style>
+        body {
+            width: 100wh;
+            color: #fff;
+            background: linear-gradient(-90deg, #17ead9, #455ac2);
+            background-size: 400% 400%;
+            -webkit-animation: Gradient 15s ease infinite;
+            -moz-animation: Gradient 15s ease infinite;
+            animation: Gradient 15s ease infinite;
+        }
+        
+        @-webkit-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        @-moz-keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        @keyframes Gradient {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        .card {
+            border-radius: 5px;
+            height: 100%;
+        }
+        
+        @font-face {
+            font-family: myFirstFont;
+            src: url(./css/tondo-bold-webfont.ttf);
+        }
+        
+        * {
+            font-family: myFirstFont;
+        }
+        
+        .card {
+            margin: 1%;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        h4 {
+            color: #050100;
+            background-image: -webkit-linear-gradient(92deg, #094f94, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-animation: hue 30s infinite linear;
+        }
+        
+        @keyframes hue {
+            from {
+                filter: hue-rotate(0deg);
+            }
+            to {
+                filter: hue-rotate(-360deg);
+            }
+        }
+        
+        .navbar-burger {
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar is-transparent">
+        <div class="navbar-brand">
+            <a class="navbar-logo" href="home.html">
+                <h1 style="color: rgb(31, 30, 30)">VTS 1.0 </h1>
+            </a>
+            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+            <div class="navbar-start">
+
+            </div>
+
+            <div class="navbar-end">
+                <a class="navbar-item active" href="home.html">
+                    Home
+                  </a>
+                <a class="navbar-item active" href="location.html">
+                    LiveLocation
+                  </a>
+
+
+                <a class="button is-danger" id="sign-out">
+                    SignOut
+                  </a>
+
+            </div>
+
+        </div>
+        </div>
+    </nav>
+
+    <section class="hero" style="margin: auto;">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-mobile ">
+                    <div class="column">
+
+                        <div class="card">
+                            <div class="card-content">
+                                <h2 id="temp"></h2>
+                                <h4 style="text-align: center">Temperature</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="column">
+
+                        <div class="card">
+                            <div class="card-content">
+                                <h2 id="hum"></h2>
+                                <h4 style="text-align: center">Humidity</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <footer style="margin-top: 40%;">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <p>2019 © PS</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+
+
+    </div>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDuzo-SR8kmJVw-dFaX5qLB8i9zWEvGfG4",
+            authDomain: "logistics-18.firebaseapp.com",
+            databaseURL: "https://logistics-18.firebaseio.com",
+            projectId: "logistics-18",
+            storageBucket: "logistics-18.appspot.com",
+            messagingSenderId: "1051638486379"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script>
+        var temp = document.getElementById("temp");
+        var hum = document.getElementById("hum");
+
+        var leadsRef = firebase.database().ref('DHT11/Temperature/');
+        leadsRef.on('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                temp.innerText = childData;
+            });
+        });
+
+
+        var leadsRef = firebase.database().ref('DHT11/Humidity/');
+        leadsRef.on('value', function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                var childData = childSnapshot.val();
+                hum.innerText = childData;
+            });
+        });
+    </script>
+</body>
+<script>
+    document.querySelector('#sign-out').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        firebase.auth().signOut().then(function() {
+            console.log("sign-out successfully!");
+            window.location = "index.html";
+            // Sign-out successful.
+        }).catch(function(error) {
+            // An error happened.
+            console.log("sign-out error!!!!!!!!!!");
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Get all "navbar-burger " elements
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any nav burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(function($el) {
+                $el.addEventListener('click', function() {
+
+                    // Get the target from the "data-target " attribute
+                    var target = $el.dataset.target;
+                    var $target = document.getElementById(target);
+                    // Toggle the class on both the "navbar-burger " and the "navbar-menu "
+                    $el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });
+</script>
+<script>
+    $("#showModal").click(function() {
+        $(".modal").addClass("is-active");
+    });
+
+    $(".modal-close").click(function() {
+        $(".modal").removeClass("is-active");
+    });
+</script>
+
+</html>
