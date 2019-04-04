@@ -316,6 +316,8 @@
             setTimeout(moveMarker, delay);
         }
     }
+
+   
     
     var latLngBounds = new google.maps.LatLngBounds();
           for(var i = 0; i < path.length; i++) {
